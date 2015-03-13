@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/eToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/ColorPrimary"
+        android:minHeight="?attr/actionBarSize" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/eToolbar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivEventDetailImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitStart"
+                android:src="@drawable/ggb" />
+
+            <ImageView
+                android:id="@+id/ivCSixImage"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@+id/ivEventDetailImage"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:padding="2dp"
+                android:src="@drawable/csix" />
+
+            <TextView
+                android:id="@+id/tvEventDetailTopic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/ivEventDetailImage"
+                android:layout_alignEnd="@id/ivCSixImage"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:gravity="center"
+                android:ellipsize="end"
+                android:lines="2"
+                android:text="description text"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+                android:textColor="@color/white" />
+
+
+            <ImageView
+                android:id="@+id/ivEventDetailCalendar"
+                android:layout_width="30dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/ivEventDetailImage"
+                android:layout_marginLeft="32dp"
+                android:src="@drawable/ic_calender_add" />
+
+            <TextView
+                android:id="@+id/tvEventDetailTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@id/ivEventDetailCalendar"
+                android:layout_marginLeft="16dp"
+                android:layout_toRightOf="@id/ivEventDetailCalendar"
+                android:paddingTop="16dp"
+                android:textColor="@color/indigo_dark" />
+
+            <View
+                android:id="@+id/vLine0"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignStart="@id/ivEventDetailCalendar"
+                android:layout_below="@id/tvEventDetailTime"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/primary_material_light" />
+
+            <TextView
+                android:id="@+id/tvEventDetailNotes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/vLine0"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:hint="@string/event_detail_empty_notes"
+                android:lines="3"
+                android:textSize="@dimen/abc_text_size_body_1_material" />
+
+            <View
+                android:id="@+id/vLine1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignLeft="@id/ivEventDetailCalendar"
+                android:layout_below="@id/tvEventDetailNotes"
+                android:layout_marginEnd="32dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/primary_material_light" />
+
+            <TextView
+                android:id="@+id/tvEventDetailMore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/vLine1"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="Learn More"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+                android:textColor="@color/indigo_dark"
+
+                />
+
+
+            <View
+                android:id="@+id/vLine2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignLeft="@id/ivEventDetailCalendar"
+                android:layout_below="@id/tvEventDetailMore"
+                android:layout_marginEnd="32dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/primary_material_light" />
+
+            <fragment
+                android:id="@+id/eventMap"
+                class="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="360dp"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/vLine2"
+                android:layout_margin="10dp"
+                android:paddingRight="10dp" />
+
+            <ImageView
+                android:id="@+id/ivMapPin"
+                android:layout_width="30dp"
+                android:layout_height="50dp"
+                android:layout_alignLeft="@id/ivEventDetailCalendar"
+                android:layout_alignStart="@id/ivEventDetailCalendar"
+                android:layout_below="@id/eventMap"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:paddingBottom="8dp"
+                android:src="@drawable/location" />
+
+            <TextView
+                android:id="@+id/tvEventDetailLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@id/ivMapPin"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:layout_toEndOf="@id/ivMapPin"
+                android:layout_toRightOf="@id/ivMapPin"
+                android:text="@string/event_location"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/tvEventDetailAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/tvEventDetailLocation"
+                android:layout_alignStart="@id/tvEventDetailLocation"
+                android:layout_below="@id/tvEventDetailLocation"
+                android:layout_marginBottom="8dp"
+                android:text="@string/event_address"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="@dimen/abc_text_size_caption_material" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

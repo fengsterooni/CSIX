@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvGroupHeader"
+                android:layout_width="360dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/indigo"
+                android:gravity="end|center_vertical"
+                android:paddingEnd="30dp"
+                android:paddingRight="30dp"
+                android:text="HELLO"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvGroupLower"
+                android:layout_width="360dp"
+                android:layout_height="300dp"
+                android:layout_alignEnd="@id/tvGroupHeader"
+                android:layout_alignLeft="@id/tvGroupHeader"
+                android:layout_alignRight="@id/tvGroupHeader"
+                android:layout_alignStart="@id/tvGroupHeader"
+                android:layout_below="@id/tvGroupHeader"
+                android:background="@color/white" />
+
+            <ImageView
+                android:id="@+id/ivGroupImage"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:layout_margin="40dp"
+                android:background="@color/white"
+                android:padding="2dp" />
+
+            <TextView
+                android:id="@+id/tvGroupTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@id/tvGroupHeader"
+                android:layout_alignLeft="@id/tvGroupHeader"
+                android:layout_alignRight="@id/tvGroupHeader"
+                android:layout_alignStart="@id/tvGroupHeader"
+                android:layout_below="@id/tvGroupHeader"
+                android:layout_gravity="center"
+                android:layout_marginTop="72dp"
+                android:lines="3"
+                android:paddingLeft="24dp"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+
+            <ImageView
+                android:id="@+id/ivClock"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_below="@id/tvGroupTitle"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_clock" />
+
+
+            <TextView
+                android:id="@+id/tvGroupTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/ivClock"
+                android:layout_gravity="center"
+                android:layout_marginLeft="12dp"
+                android:layout_toRightOf="@id/ivClock"
+                android:textAppearance="@color/md_black_1000"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/ivLocation"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_below="@id/ivClock"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_location" />
+
+            <TextView
+                android:id="@+id/tvGroupLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/ivLocation"
+                android:layout_gravity="center"
+                android:layout_marginLeft="12dp"
+                android:layout_toRightOf="@id/ivLocation"
+                android:textAppearance="@color/md_black_1000"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <View
+                android:id="@+id/vLine"
+                android:layout_width="360dp"
+                android:layout_height="1dp"
+                android:layout_alignLeft="@id/ivClock"
+                android:layout_below="@id/tvEventLocation"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/primary_material_light" />
+
+            <ImageView
+                android:id="@+id/ivTwitter"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignEnd="@id/tvLower"
+                android:layout_alignRight="@id/tvLower"
+                android:layout_below="@id/vLine"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="16dp"
+                android:gravity="end"
+                android:src="@drawable/twitter_logo_blue" />
+
+            <ImageView
+                android:id="@+id/ivFacebook"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignTop="@id/ivTwitter"
+                android:layout_below="@id/vLine"
+                android:layout_marginRight="8dp"
+                android:layout_toLeftOf="@id/ivTwitter"
+                android:gravity="end"
+                android:src="@drawable/facebook_logo" />
+
+            <ImageView
+                android:id="@+id/ivGplus"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignTop="@id/ivFacebook"
+                android:layout_below="@id/vLine"
+                android:layout_marginRight="8dp"
+                android:layout_toLeftOf="@id/ivFacebook"
+                android:gravity="end"
+                android:src="@drawable/gplus128" />
+
+            <ImageView
+                android:id="@+id/ivMeetup"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignTop="@id/ivGplus"
+                android:layout_below="@id/vLine"
+                android:layout_marginRight="8dp"
+                android:layout_toLeftOf="@id/ivGplus"
+                android:gravity="end"
+                android:src="@drawable/meetup" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

@@ -1,0 +1,65 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/border"
+    android:padding="1dp"
+    tools:context="org.csix.android.">
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivGroupImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="2dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY" />
+
+            <TextView
+                android:id="@+id/tvGroupTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="@color/white"
+                android:textSize="@dimen/abc_text_size_caption_material"
+                android:layout_alignBottom="@id/ivGroupImage"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvGroupDetailDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ivGroupImage"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:text="6999 members"
+                android:textColor="@color/black"
+                android:textSize="@dimen/abc_text_size_caption_material"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvGroupCoordinator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/tvGroupTitle"
+                android:layout_below="@id/tvGroupDetailDetail"
+                android:layout_centerVertical="true"
+                android:textSize="12sp"
+
+                />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

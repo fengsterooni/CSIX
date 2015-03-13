@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.csix.android.fragments.GroupFragment">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cardTitleSIG"
+        android:layout_margin="@dimen/margin">
+
+    <TextView
+        android:id="@+id/tvAboutTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/indigo_dark"
+        android:textSize="@dimen/abc_text_size_title_material"
+        android:text="@string/title_csix_groups"
+        android:textStyle="bold" />
+
+    </android.support.v7.widget.CardView>
+
+    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/gvSIGs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cardTitleSIG"
+        android:numColumns="2" />
+
+    <TextView
+        android:id="@android:id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center" />
+
+</RelativeLayout>

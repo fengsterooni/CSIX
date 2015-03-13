@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">CSixConnect</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="event_location">Saratoga Federated Church</string>
+    <string name="event_address">20390 Park Place, Saratoga, CA 95070</string>
+    <string name="event_start">10:00 AM</string>
+    <string name="event_end">1:00 PM</string>
+    <string name="event_details">Event Details</string>
+    <string name="group_details">Group Details</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_map">MapActivity</string>
+    <string name="event_detail_empty_notes">More info to come, will update soon!</string>
+    <string name="title_activity_event_description">Event Description</string>
+    <string name="title_activity_event">Event Detail</string>
+    <string name="title_activity_group">Group Detail</string>
+    <string name="title_csix_groups">Special Interest Groups\n(SIGs)</string>
+</resources>
