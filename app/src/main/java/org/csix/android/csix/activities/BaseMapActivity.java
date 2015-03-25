@@ -21,18 +21,15 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.csix.android.csix.R;
 
-public class BaseMapActivity extends ActionBarActivity implements
+public abstract class BaseMapActivity extends ActionBarActivity implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
@@ -40,29 +37,35 @@ public class BaseMapActivity extends ActionBarActivity implements
     private GoogleMap map;
     private GoogleApiClient mGoogleApiClient;
     private LocationManager mLocationManager;
-    private LatLng srcLatLng, latLng;
-    private String srcLatitude;
-    private String srcLongitude;
-    private String location, address;
-    private Marker marker;
+    protected LatLng srcLatLng, latLng;
+    protected String srcLatitude;
+    protected String srcLongitude;
 
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 
-    public void setupMap(LatLng loc, int mapId, String loct, String addr) {
-        if (loc == null)
-            return;
-        if (loc != null)
-            location = loct;
+    protected int getLayoutId() {
+        return R.layout.activity_map_base;
+    }
 
-        if (addr != null)
-            address = addr;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(getLayoutId());
+        init();
+    }
 
-        latLng = loc;
+    protected abstract void setupMap();
+
+    protected GoogleMap getMap() {
+        return map;
+    }
+
+    public void init() {
         mLocationManager = (LocationManager) getSystemService(Activity.LOCATION_SERVICE);
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
                 3, 1, mLocationListener);
 
-        mapFragment = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(mapId));
+        mapFragment = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map));
         if (mapFragment != null) {
             mapFragment.getMapAsync(new OnMapReadyCallback() {
                 @Override
@@ -74,7 +77,6 @@ public class BaseMapActivity extends ActionBarActivity implements
         } else {
             Toast.makeText(this, "Error - Map Fragment was null!!", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     protected void loadMap(GoogleMap googleMap) {
@@ -82,6 +84,37 @@ public class BaseMapActivity extends ActionBarActivity implements
         if (map != null) {
             // Toast.makeText(this, "Map Fragment was loaded properly!", Toast.LENGTH_SHORT).show();
             map.setMyLocationEnabled(true);
+
+            map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                @Override
+                public boolean onMarkerClick(Marker marker) {
+                    latLng = marker.getPosition();
+                    if (srcLatLng != null) {
+                        String uri = "http://maps.google.com/maps?saddr="
+                                + srcLatitude + "," + srcLongitude + "&daddr="
+                                + Double.toString(latLng.latitude) + "," + Double.toString(latLng.longitude);
+                        Intent intent = new Intent(
+                                android.content.Intent.ACTION_VIEW, Uri.parse(uri));
+                        intent.setClassName("com.google.android.apps.maps",
+                                "com.google.android.maps.MapsActivity");
+                        try {
+                            startActivity(intent);
+                        } catch (ActivityNotFoundException ex) {
+                            try {
+                                Intent unrestrictedIntent = new Intent(
+                                        Intent.ACTION_VIEW, Uri.parse(uri));
+                                startActivity(unrestrictedIntent);
+                            } catch (ActivityNotFoundException innerEx) {
+                                Toast.makeText(getApplicationContext(),
+                                        "Please install a maps application",
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        }
+                        overridePendingTransition(R.anim.right_in, R.anim.left_out);
+                    }
+                    return true;
+                }
+            });
 
             // Now that map has loaded, let's get our location!
             mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -121,15 +154,12 @@ public class BaseMapActivity extends ActionBarActivity implements
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Decide what to do based on the original request code
         switch (requestCode) {
-
             case CONNECTION_FAILURE_RESOLUTION_REQUEST:
-
                 switch (resultCode) {
                     case Activity.RESULT_OK:
                         mGoogleApiClient.connect();
                         break;
                 }
-
         }
     }
 
@@ -160,57 +190,7 @@ public class BaseMapActivity extends ActionBarActivity implements
 
     @Override
     public void onConnected(Bundle dataBundle) {
-        // Display the connection status
-        if (marker != null)
-            marker.setVisible(false);
-        if (latLng != null) {
-            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 15);
-            map.moveCamera(cameraUpdate);
-            map.animateCamera(cameraUpdate);
-
-
-            marker = map.addMarker(new MarkerOptions()
-                    .position(latLng));
-            dropPinEffect(marker);
-            marker.setTitle(location);
-            marker.setSnippet(address);
-
-
-            map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                @Override
-                public boolean onMarkerClick(Marker marker) {
-                    if (srcLatLng != null) {
-                        String uri = "http://maps.google.com/maps?saddr="
-                                + srcLatitude + "," + srcLongitude + "&daddr="
-                                + Double.toString(latLng.latitude) + "," + Double.toString(latLng.longitude);
-                        Intent intent = new Intent(
-                                android.content.Intent.ACTION_VIEW, Uri.parse(uri));
-                        intent.setClassName("com.google.android.apps.maps",
-                                "com.google.android.maps.MapsActivity");
-                        try {
-                            startActivity(intent);
-                        } catch (ActivityNotFoundException ex) {
-                            try {
-                                Intent unrestrictedIntent = new Intent(
-                                        Intent.ACTION_VIEW, Uri.parse(uri));
-                                startActivity(unrestrictedIntent);
-                            } catch (ActivityNotFoundException innerEx) {
-                                Toast.makeText(getApplicationContext(),
-                                        "Please install a maps application",
-                                        Toast.LENGTH_LONG).show();
-                            }
-                        }
-
-                        overridePendingTransition(R.anim.right_in, R.anim.left_out);
-
-                    }
-
-                    return true;
-                }
-            });
-        } else {
-            Toast.makeText(this, "Current location was null, enable GPS on emulator!", Toast.LENGTH_SHORT).show();
-        }
+        setupMap();
     }
 
     @Override
@@ -287,7 +267,7 @@ public class BaseMapActivity extends ActionBarActivity implements
         }
     };
 
-    private void dropPinEffect(final Marker marker) {
+    protected void dropPinEffect(final Marker marker) {
         // Handler allows us to repeat a code block after a specified delay
         final android.os.Handler handler = new android.os.Handler();
         final long start = SystemClock.uptimeMillis();
@@ -318,7 +298,6 @@ public class BaseMapActivity extends ActionBarActivity implements
             }
         });
     }
-
 
     @Override
     public void onBackPressed() {

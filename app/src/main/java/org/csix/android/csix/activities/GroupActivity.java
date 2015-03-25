@@ -7,7 +7,12 @@ import android.text.Html;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -29,43 +34,64 @@ public class GroupActivity extends BaseMapActivity {
     TextView time;
     @InjectView(R.id.tvGroupLocation)
     TextView location;
-    private String groupId;
-    private Group group;
-
     @InjectView(R.id.gToolbar)
     Toolbar toolbar;
-    private String locationAddress;
-    private String groupTime;
-    private String groupLocation;
 
+    String groupId;
+    Group group;
+    String locationAddress;
+    String groupTime;
+    String groupLocation;
+    LatLng latLng;
     Typeface font = null;
+    private GoogleMap map = null;
+    private Marker marker;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected int getLayoutId() {
+        return R.layout.activity_group;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_group);
         ButterKnife.inject(this);
-
-        groupId = getIntent().getStringExtra("groupId");
-        locationAddress = getIntent().getStringExtra("address");
-        //groupTime = getIntent().getStringExtra("time");
-        groupLocation = getIntent().getStringExtra("location");
-        LatLng latLng = LocationUtils.getAddress(this, locationAddress);
-
-        setupMap(latLng, R.id.groupMap, groupLocation, locationAddress);
-        getGroup();
-
         setSupportActionBar(toolbar);
         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         font = Typeface.createFromAsset(getApplicationContext().getAssets(),
                 "fonts/Roboto-Light.ttf");
 
+        groupId = getIntent().getStringExtra("groupId");
+        locationAddress = getIntent().getStringExtra("address");
+        groupLocation = getIntent().getStringExtra("location");
+        latLng = LocationUtils.getAddress(this, locationAddress);
+        getGroup();
+    }
+
+    @Override
+    protected void setupMap() {
+        if (map == null) {
+            map = getMap();
+        }
+
+        // Display the connection status
+        if (marker != null)
+            marker.setVisible(false);
+        if (latLng != null) {
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 15);
+            map.moveCamera(cameraUpdate);
+            map.animateCamera(cameraUpdate);
+
+            marker = map.addMarker(new MarkerOptions()
+                    .position(latLng));
+            dropPinEffect(marker);
+            marker.setTitle(groupLocation);
+            marker.setSnippet(locationAddress);
+        }
     }
 
     public void getGroup() {
-
         ParseQuery<Group> query = ParseQuery.getQuery(Group.class);
         query.setCachePolicy(ParseQuery.CachePolicy.CACHE_ELSE_NETWORK);
         query.getInBackground(groupId, new GetCallback<Group>() {

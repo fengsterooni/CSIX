@@ -119,9 +119,7 @@
                 android:text="Learn More"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
                 android:textColor="@color/indigo_dark"
-
                 />
-
 
             <View
                 android:id="@+id/vLine2"
@@ -134,8 +132,8 @@
                 android:background="@color/primary_material_light" />
 
             <fragment
-                android:id="@+id/eventMap"
-                class="com.google.android.gms.maps.SupportMapFragment"
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
                 android:layout_height="360dp"
                 android:layout_alignParentLeft="true"
@@ -149,7 +147,7 @@
                 android:layout_height="50dp"
                 android:layout_alignLeft="@id/ivEventDetailCalendar"
                 android:layout_alignStart="@id/ivEventDetailCalendar"
-                android:layout_below="@id/eventMap"
+                android:layout_below="@id/map"
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
                 android:paddingBottom="8dp"

@@ -10,7 +10,12 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -29,12 +34,6 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class EventActivity extends BaseMapActivity {
-
-    int year;
-    int month;
-    int day;
-    String eventNotes = null;
-
     @InjectView(R.id.tvEventDetailTopic)
     TextView topic;
     @InjectView(R.id.tvEventDetailNotes)
@@ -85,32 +84,63 @@ public class EventActivity extends BaseMapActivity {
         overridePendingTransition(R.anim.bottom_up, R.anim.top_out);
     }
 
+    int year;
+    int month;
+    int day;
+    String eventNotes = null;
     private String eventId;
     private Event event;
     Typeface font = null;
-
     private String locationAddress;
+    LatLng latLng;
+    String sfc;
+    private GoogleMap map = null;
+    private Marker marker;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected int getLayoutId() {
+        return R.layout.activity_event;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event);
         ButterKnife.inject(this);
-        eventId = getIntent().getStringExtra("eventId");
-        locationAddress = getResources().getString(R.string.event_address);
-
-        LatLng latLng = LocationUtils.getAddress(this, locationAddress);
-        String sfc = getResources().getString(R.string.event_location);
-        setupMap(latLng, R.id.eventMap, sfc, locationAddress);
-
-        setSupportActionBar(toolbar);
 
         font = Typeface.createFromAsset(getApplicationContext().getAssets(),
                 "fonts/Roboto-Light.ttf");
-
+        setSupportActionBar(toolbar);
         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        eventId = getIntent().getStringExtra("eventId");
+        locationAddress = getResources().getString(R.string.event_address);
+        latLng = LocationUtils.getAddress(this, locationAddress);
+        sfc = getResources().getString(R.string.event_location);
+
         getEvent();
+    }
+
+    @Override
+    protected void setupMap() {
+        if (map == null) {
+            map = getMap();
+        }
+
+        // Display the connection status
+        if (marker != null)
+            marker.setVisible(false);
+        if (latLng != null) {
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 15);
+            map.moveCamera(cameraUpdate);
+            map.animateCamera(cameraUpdate);
+
+            marker = map.addMarker(new MarkerOptions()
+                    .position(latLng));
+            dropPinEffect(marker);
+            marker.setTitle(sfc);
+            marker.setSnippet(locationAddress);
+        }
     }
 
 
@@ -147,11 +177,11 @@ public class EventActivity extends BaseMapActivity {
                     address.setText(R.string.event_address);
                     location.setTypeface(font);
                     location.setText(R.string.event_location);
-
                 }
             }
         });
     }
+
 
     public void getDate(Date date) {
         Calendar cal = Calendar.getInstance();

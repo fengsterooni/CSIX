@@ -71,9 +71,8 @@
         android:layout_below="@id/tvGroupLocation"
         android:textSize="@dimen/abc_text_size_caption_material" />
 
-
     <fragment
-        android:id="@+id/groupMap"
+        android:id="@+id/map"
         class="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -81,6 +80,5 @@
         android:layout_below="@id/tvGroupAddress"
         android:layout_margin="10dp"
         android:paddingRight="10dp" />
-
 
 </RelativeLayout>
