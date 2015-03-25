@@ -13,15 +13,18 @@ import android.widget.TextView;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.ui.IconGenerator;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 
 import org.csix.android.csix.R;
 import org.csix.android.csix.models.Event;
+import org.csix.android.csix.models.Sign;
 import org.csix.android.csix.utils.DateUtils;
 import org.csix.android.csix.utils.LocationUtils;
 
@@ -84,18 +87,20 @@ public class EventActivity extends BaseMapActivity {
         overridePendingTransition(R.anim.bottom_up, R.anim.top_out);
     }
 
-    int year;
-    int month;
-    int day;
-    String eventNotes = null;
+    private int year;
+    private int month;
+    private int day;
+    private String eventNotes = null;
     private String eventId;
     private Event event;
-    Typeface font = null;
+    private Typeface font = null;
     private String locationAddress;
-    LatLng latLng;
-    String sfc;
+    private LatLng latLng;
+    private String sfc;
     private GoogleMap map = null;
     private Marker marker;
+
+    //private ClusterManager<Sign> clusterManager;
 
     @Override
     protected int getLayoutId() {
@@ -120,6 +125,19 @@ public class EventActivity extends BaseMapActivity {
 
         getEvent();
     }
+/*
+    saratoga & park
+    37.259537, -122.030344
+
+    Church entrance
+    37.258169, -122.029994
+
+    Lower parking lot
+    37.259189, -122.030509
+
+    Lifthouse (C6) Entrance
+    37.258055, -122.030835
+    */
 
     @Override
     protected void setupMap() {
@@ -131,18 +149,48 @@ public class EventActivity extends BaseMapActivity {
         if (marker != null)
             marker.setVisible(false);
         if (latLng != null) {
-            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 15);
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(37.258055, -122.030835), 17);
             map.moveCamera(cameraUpdate);
             map.animateCamera(cameraUpdate);
+            map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 
-            marker = map.addMarker(new MarkerOptions()
-                    .position(latLng));
-            dropPinEffect(marker);
-            marker.setTitle(sfc);
-            marker.setSnippet(locationAddress);
+            setupSigns();
         }
     }
 
+    private void setupSigns() {
+
+        IconGenerator iconGenerator = new IconGenerator(this);
+
+        Sign sign = new Sign(37.258055, -122.030835, "Lifehouse\nCSix Entrance", "We meet here", R.drawable.lifehouse2);
+        iconGenerator.setRotation(180);
+        iconGenerator.setContentRotation(-180);
+        iconGenerator.setStyle(IconGenerator.STYLE_BLUE);
+        addIcon(iconGenerator, sign.getName(), sign.getPosition());
+
+        sign = new Sign(37.258169, -122.029994, "Church Entrance", "Go pass here", R.drawable.church2);
+        iconGenerator.setRotation(90);
+        iconGenerator.setContentRotation(0);
+        iconGenerator.setStyle(IconGenerator.STYLE_PURPLE);
+        addIcon(iconGenerator, sign.getName(), sign.getPosition());
+
+        sign = new Sign(37.259189, -122.030509, "Lower Parking Lot", "Please park here", R.drawable.lowerparking2);
+        iconGenerator.setRotation(90);
+        iconGenerator.setContentRotation(-90);
+        iconGenerator.setStyle(IconGenerator.STYLE_GREEN);
+        addIcon(iconGenerator, sign.getName(), sign.getPosition());
+
+    }
+
+    private void addIcon(IconGenerator iconFactory, String text, LatLng position) {
+        MarkerOptions markerOptions = new MarkerOptions()
+                .icon(BitmapDescriptorFactory.fromBitmap(iconFactory.makeIcon(text)))
+                .position(position)
+                .anchor(iconFactory.getAnchorU(), iconFactory.getAnchorV());
+
+        marker = map.addMarker(markerOptions);
+        marker.showInfoWindow();
+    }
 
     public void getEvent() {
 

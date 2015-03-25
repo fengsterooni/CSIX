@@ -19,7 +19,9 @@
                 android:id="@+id/ivCSixImage"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
+                android:layout_marginTop="8dp"
                 android:adjustViewBounds="true"
+                android:contentDescription="@string/logo"
                 android:src="@drawable/csix" />
 
             <TextView
@@ -27,26 +29,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:layout_alignTop="@id/ivCSixImage"
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:paddingEnd="8dp"
+                android:paddingStart="8dp"
                 android:layout_toEndOf="@id/ivCSixImage"
-                android:layout_toRightOf="@id/ivCSixImage"
                 android:textColor="@color/indigo_dark"
                 android:textSize="@dimen/abc_text_size_body_2_material"
                 android:textStyle="bold" />
-
 
             <TextView
                 android:id="@+id/tvAboutContent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@id/tvAboutTitle"
+                android:layout_alignStart="@id/tvAboutTitle"
                 android:layout_below="@id/tvAboutTitle"
                 android:layout_centerVertical="true"
                 android:paddingEnd="8dp"
-                android:paddingRight="8dp"
+                android:paddingStart="8dp"
                 android:textSize="16sp"
+                android:paddingBottom="8dp"
+                android:layout_marginBottom="8dp"
                 />
 
         </RelativeLayout>

@@ -22,9 +22,13 @@ import org.csix.android.csix.models.Event;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 public class EventFragment extends Fragment {
 
-    private ListView lvEvent;
+    @InjectView(android.R.id.list) ListView lvEvent;
+
     private EventAdapter aEvent;
     private ArrayList<Event> events;
 
@@ -48,9 +52,9 @@ public class EventFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_event_list, container, false);
+        ButterKnife.inject(this, view);
 
         // Set the adapter
-        lvEvent = (ListView) view.findViewById(android.R.id.list);
         lvEvent.setAdapter(aEvent);
 
         // Set OnItemClickListener so we can be notified on item clicks

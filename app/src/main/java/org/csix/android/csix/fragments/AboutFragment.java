@@ -20,10 +20,13 @@ import org.csix.android.csix.models.About;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 public class AboutFragment extends Fragment {
     private ArrayList<About> items;
     private ArrayAdapter<About> aItem;
-    private ListView lvAbout;
+    @InjectView(android.R.id.list) ListView lvAbout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,9 +37,11 @@ public class AboutFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // return super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_about_list, container, false);
+        ButterKnife.inject(this, view);
+
         items = new ArrayList<About>();
         aItem = new AboutAdapter(getActivity(), items);
-        lvAbout = (ListView) view.findViewById(android.R.id.list);
+        // lvAbout = (ListView) view.findViewById(android.R.id.list);
         lvAbout.setAdapter(aItem);
         getItems();
         return view;

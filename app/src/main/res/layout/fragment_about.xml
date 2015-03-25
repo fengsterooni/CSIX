@@ -3,11 +3,4 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="org.csix.android.csix.fragments.AboutFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
 </FrameLayout>

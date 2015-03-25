@@ -21,16 +21,16 @@ import butterknife.InjectView;
 
 public class EventDescriptionActivity extends ActionBarActivity {
 
-    Typeface font = null;
-    String eventId;
-    Event event = null;
-
     @InjectView(R.id.eventDescriptionTitle)
     TextView title;
     @InjectView(R.id.eventDescription)
     TextView notes;
     @InjectView(R.id.dToolbar)
     Toolbar toolbar;
+
+    private Typeface font = null;
+    private String eventId;
+    private Event event = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

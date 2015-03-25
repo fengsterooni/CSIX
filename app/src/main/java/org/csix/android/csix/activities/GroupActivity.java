@@ -37,13 +37,13 @@ public class GroupActivity extends BaseMapActivity {
     @InjectView(R.id.gToolbar)
     Toolbar toolbar;
 
-    String groupId;
-    Group group;
-    String locationAddress;
-    String groupTime;
-    String groupLocation;
-    LatLng latLng;
-    Typeface font = null;
+    private String groupId;
+    private Group group;
+    private String locationAddress;
+    private String groupTime;
+    private String groupLocation;
+    private LatLng latLng;
+    private Typeface font = null;
     private GoogleMap map = null;
     private Marker marker;
 

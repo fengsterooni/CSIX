@@ -12,14 +12,12 @@
     <string name="event_end">1:00 PM</string>
     <string name="event_details">Event Details</string>
     <string name="group_details">Group Details</string>
-
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_map">MapActivity</string>
     <string name="event_detail_empty_notes">More info to come, will update soon!</string>
     <string name="title_activity_event_description">Event Description</string>
     <string name="title_activity_event">Event Detail</string>
     <string name="title_activity_group">Group Detail</string>
     <string name="title_csix_groups">Special Interest Groups\n(SIGs)</string>
+    <string name="title_learn_more">Learn More</string>
+    <string name="logo">CSix Logo</string>
 </resources>
