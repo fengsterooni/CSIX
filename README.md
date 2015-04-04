@@ -1,13 +1,13 @@
 CSIX CONNECT
 =============
 
-#####**_C_**ommunicate your need
+**_C_**ommunicate your need
 
-#####**_S_**tate your goal
+**_S_**tate your goal
 
-#####**_I_**mprove your networking skills
+**_I_**mprove your networking skills
 
-#####e**_X_**change job leads
+e**_X_**change job leads
 ***
 
 This is an Android application for CSIX CONNECT (www.csix.org).
